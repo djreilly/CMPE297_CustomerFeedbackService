@@ -1,0 +1,34 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+# Administration API
+
+GET     /admin/client              controllers.Application.clientForm
+
+GET     /admin/client/:client_id   controllers.Application.client(client_id)
+POST    /admin/client/:client_id   controllers.Application.addClient(client_id)
+PUT     /admin/client/:client_id   controllers.Application.editClient(client_id)
+
+DELETE  /admin/client/:client_id   controllers.Application.removeClient(client_id)
+
+# Operational API
+
+GET     /review/:client_id/:product_id          controllers.Application.getReviews(client_id, product_id)
+
+POST    /review/:client_id/:product_id          controllers.Application.postReview(client_id, product_id)
+POST    /review/rating/:review_id/negative      controllers.Application.postReviewRatingNegative(review_id)
+POST    /review/rating/:review_id/positive      controllers.Application.postReviewRatingPositive(review_id)
+POST    /review/rating/:review_id/inappropriate controllers.Application.postReviewRatingInappropriate(review_id)
+
+# Analytics API
+
+GET     /report/:client_id/:report_type  controllers.Application.getSummaryReport(client_id, report_type)
+GET     /report/:client_id/:product_id/:report_type  controllers.Application.getProductReport(client_id, product_id, report_type)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
