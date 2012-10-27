@@ -4,6 +4,7 @@ import play.api._
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc._
+import models.ReviewData
 
 object Application extends Controller {
   
@@ -43,8 +44,8 @@ object Application extends Controller {
    * Posts a new review for the given client and product.
    */
   def postReview(clientID: String, productID: String) = Action(parse.json) { request =>
-    (request.body \ "review_text").asOpt[String].map { reviewText => 
-      storeReview(clientID, productID, reviewText)
+    (request.body \ "review_text").asOpt[String].map { review_text => 
+      ReviewData.addReview(clientID, productID, review_text)
       Ok("Review received")
     }.getOrElse {
       BadRequest("Missing parameter [review_text]")
@@ -54,7 +55,11 @@ object Application extends Controller {
   /**
    * Gets all reviews for the given client and product.
    */
-  def getReviews(clientID: String, productID: String) = TODO
+  def getReviews(clientID: String, productID: String) = Action { request =>
+    val cursor = ReviewData.getReviews(clientID, productID)
+    cursor.foreach(review => println(review))
+    Ok("Get reviews request received")
+  }
   
   /**
    * Posts a rating of a given existing review as "negative".
