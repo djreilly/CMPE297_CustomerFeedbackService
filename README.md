@@ -1,4 +1,4 @@
-CMPE_297_ReviewsApp
-===================
+CMPE297_CustomerFeedbackService
+===============================
 
-SJSU CMPE 297 Reviews Application
+SJSU CMPE 297 Customer Feedback Service project
