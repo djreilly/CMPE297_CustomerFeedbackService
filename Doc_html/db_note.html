@@ -1,0 +1,33 @@
+
+<h2>C297 notes </h2>
+
+
+<ol>
+   <li>curl -i -H  http://localhost:3000/subjects.json
+   <li>curl -i  http://localhost:3000/subjects.json/1.json
+   <li>curl -i  http://localhost:3000/subjects.json/1
+   <li>curl -k  https://spider.svl.ibm.com
+</ol>
+
+<b>MongoDB</b> <a href="http://www.mongodb.org/display/DOCS/Overview+-+The+MongoDB+Interactive+Shell">example</a>
+<ol>
+  <li>databases, collections, and indexes 
+  <li>mongoimport -d mydb -c things mongo1.json
+  <li>var cursor=db.custFeed.find(); <br/>
+  while ( cursor.hasNext() ) printjson (cursor.next() );
+  <li>use custFeed 
+  <li>show collections
+  <li>db.things.find().forEach(printjson);
+  <li>db.things.find({name:"mongo"}).forEach(printjson);
+  <li>db.things.find().forEach(printjson);
+  <li>db.dropDataBase()
+</ol><br/>
+
+/home/inst101/cmpe279/my_salat_app/app : app's area; place you modify <br/>
+./app/models/ReviewData.scala <br/>
+./app/models/User.scala <br/>
+./app/models/salatcontext.scala <br/>
+./app/Global.scala <br/>
+./app/controllers/Application.scala <br/>
+./project/Build.scala <br/>
+
