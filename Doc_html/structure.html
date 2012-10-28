@@ -1,7 +1,6 @@
 <html>
 
 <h3>Structure </h3>
-
 <pre>
 	"_id",
 	"client_id",
@@ -15,34 +14,5 @@
 	"review_text",
 	"reviewer_id"
 </pre>
-
-<ol>
- <li> How to get all the field's name; this is mongo shell
- <pre>
-> mr=db.runCommand ( {  
-... ... "mapreduce" : "reviews",
-... ... "map" : function() {
-... ...    for (var key in this ) { emit (key, null); }
-... ... },
-... ... "reduce" : function (key, stuff) {return null;},
-... "out" : "reviews" + "_keys"
-... })
-{
-	"result" : "reviews_keys",
-	"timeMillis" : 5,
-	"counts" : {
-		"input" : 26,
-		"emit" : 258,
-		"reduce" : 11,
-		"output" : 11
-	},
-	"ok" : 1
-}
-> db[mr.result].distinct("_id")
-
-</pre>
-<li> How:
-
-
 
 </html>

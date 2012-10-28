@@ -1,24 +1,83 @@
-<html>
+<br/>
 
-<table border='1'>
-  <tr><td >1</td> <td >Camera</td> <td >Nikon D5100 DSLR Camera 2 Lens Bundle</td> <td ><a href='nowhere.svl.ibm.com'>view</a></td> </tr>
-  <tr><td >2</td> <td >Kindle Fire HD</td> <td >7" HD Display, Dolby Audio, Dual-Band Dual-Antenna Wi-Fi, 16GB or 32GB</td> <td ><a href='nowhere.svl.ibm.com'>view</a></td> </tr>
-
-</table>
-
-<br/><br/>Business Unit: Blue<br/>Input: <br/>
-<form name='input'  method='POST'>
-<table border='1'>  <tr><td >Product Name:</td> <td ><input type='text' name='product_name' size='80' value='Camera'/></td> </tr>
-  <tr><td >Description:</td> <td ><input type='text' name='product_desc' size='80' value='Nikon D5100 DSLR Camera 2 Lens Bundle'/></td> </tr>
-  <tr><td >rating</td> <td ><input type='text' name='rating' size='80' value='2'/></td> </tr>
-
-  <tr><td >Provide By:</td> <td ><input type='text' name='review_provided_by' size='80' value='someone@somewhere.com'/></td> </tr>
-  <tr><td >Date</td> <td ><input type='text' name='review_date' size='80' value='today'/></td> </tr>
-  <tr><td >Feedback: </td> <td ><input type='text' name='review_feedback' size='80' value='Meet my exception'/></td> </tr>
-</table><input type='submit' value='Submit' ></form_db>
-<br/><hr/>
+<?php
 
 
+  $business_name="Blue"; 
+  $product_listA=array(); 
+
+  $productA=array(); 
+  $productA['product_name']="Camera";
+  $productA['product_desc']= "Nikon D5100 DSLR Camera 2 Lens Bundle";
+  $productA['rating']=2; 
+  $productA['review_provided_by']= "someone@somewhere.com"; 
+  $productA['review_date']= "today"; 
+  $productA['review_feedback']= "Meet my exception"; 
+  array_push ($product_listA, $productA); 
+
+  $productA['product_name']="Kindle Fire HD";
+  $productA['product_desc']= "7\" HD Display, Dolby Audio, Dual-Band Dual-Antenna Wi-Fi, 16GB or 32GB";
+  $productA['rating']=3; 
+  $productA['review_provided_by']= "someone@somewhere.com"; 
+  $productA['review_date']= "today"; 
+  $productA['review_feedback']= "Meet my exception"; 
+  array_push ($product_listA, $productA); 
+
+  $show = "<table border='1'>\n";
+  $ln=1; 
+  foreach ( $product_listA as $key ) {
+      $show .= "  <tr>";
+      $show .= "<td >$ln</td> ";
+      $name=$key['product_name']; 
+      $desc=$key['product_desc']; 
+      $link="<a href='nowhere.svl.ibm.com'>view</a>"; 
+
+      $show .= "<td >" . $name  . "</td> ";
+      $show .= "<td >" . $desc  . "</td> ";
+      $show .= "<td >" . $link  . "</td> ";
+
+      $show .= "</tr>\n";
+      $ln++; 
+  }
+  $show .= "</table>\n";
+
+  print "$show\n<br/><br/>"; 
+
+
+  $productA=array_shift($product_listA); 
+  $sub_titleA=array(); 
+  $sub_titleA['product_name']="Product Name:";
+  $sub_titleA['product_desc']= "Description:";
+  $sub_titleA['rating']="rating"; 
+  $sub_titleA['review_provided_by']= "Provide By:"; 
+  $sub_titleA['review_date']= "Date"; 
+  $sub_titleA['review_feedback']= "Feedback: "; 
+
+
+  $show = "Business Unit: $business_name<br/>Input: <br/>\n";
+  $show .= "<form name='input'  method='POST'>\n";
+  $show .= "<table border='1'>";
+  foreach ( array_keys($productA) as $key ) {
+
+      $show .= "  <tr>";
+      $show .= "<td >" . $sub_titleA[$key] . "</td> ";
+      $show .= "<td >" . "<input type='text' name='$key' size='80' value='". 
+                   $productA[$key] . "'/>". "</td> ";
+
+      $show .= "</tr>\n";
+  }
+  $show .= "</table>";
+
+
+  $show .= "<input type='submit' value='Submit' >";
+  $show .="</form_db>\n"; 
+
+  print "$show"; 
+
+  print "<br/>"; 
+ 
+
+?>
 <hr/>
 vocabulary: <br/>
 <ol>
