@@ -26,6 +26,8 @@ case class ReviewData(
   review_date: Option[String] = None ,
   rating2: Option[String] = None,
   path: Option[String] = None,
+  access_from: Option[String] = None,
+  access_date: Option[String] = None,
   review: Option[Review] = None,
   feedback: Option[Feedback] = None,
   review_text: Option[String] = None
@@ -107,5 +109,21 @@ object ReviewData extends ModelCompanion[ReviewData, ObjectId] {
      val ratingA=rating4.toArray;
      ratingA
  } 
+
+  def addOne( ip:String ) = {   
+     val current=new Date();
+     val cur_txt=current.toString(); 
+     dao.insert( new ReviewData( access_date=Option(cur_txt), 
+        access_from=Option(ip)  )) 
+   } 
+
+  def addOneCount( ) = {   
+     val condObject= MongoDBObject ( "access_from"->1, "access_date"->1  ); 
+     val tObject= MongoDBObject ( "$exists" ->true ); 
+     val rating4 = dao.find(MongoDBObject( "access_from"->tObject  ), condObject )
+     val ratingA=rating4.toArray;
+     ratingA.size
+
+   } 
 
 }

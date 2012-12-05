@@ -122,6 +122,20 @@ object Application extends Controller {
     Ok("Get reviews request received " + outString + "\n" +  outString3 + "\n" + outString2)
   }
 
+  def welcome = Action { request =>
+    val was= ReviewData.addOneCount() 
+    val ip=request.remoteAddress
+    var cid= ReviewData.addOne(ip) 
+    val current= ReviewData.addOneCount() 
+    Ok( "was= " + was + " from=" + ip + " now=" + current + "\n"  )
+  }
+
+  def welcomeCount = Action { 
+    var cid= ReviewData.addOneCount() 
+    Ok( "count= " + cid )
+  }
+
+
   def prod1 = Action {
     var cid= ReviewData.get_pid2() 
     Ok(views.html.client1( cid ))

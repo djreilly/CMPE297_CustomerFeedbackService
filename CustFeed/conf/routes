@@ -36,6 +36,8 @@ GET     /sudoku/:client_id/:product_id/count  controllers.Application.getReviewC
 GET     /sudoku/:client_id/:product_id/last  controllers.Application.getReviewLast(client_id, product_id )
 GET     /sudoku/:client_id            controllers.Application.getClient(client_id )
 
+GET     /Welcome              controllers.Application.welcome
+GET     /WelcomeCount         controllers.Application.welcomeCount
 
 
 # Map static resources from the /public folder to the /assets URL path
