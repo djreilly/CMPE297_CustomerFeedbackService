@@ -1,0 +1,33 @@
+@(cid: Array[ReviewData] )
+
+@import models.ReviewData
+
+@main(title = "testing") {
+    
+    
+</ol>
+
+    <br/><br/>
+   <table border='1'>
+     <tr>
+       <th>client_id</th>
+       <th>product_id</th>
+       <th>rating</th>
+       <th>path</th>
+    </tr>
+    @cid.map { c =>
+      <tr>
+         <td>@c.client_id</td>
+         <td>@c.product_id</td>
+         <td>@c.rating2</td>
+         <td>@c.path</td>
+      </tr>
+    }
+   </table>
+
+
+    <br/><br/>
+
+
+    
+}

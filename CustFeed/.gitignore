@@ -12,3 +12,4 @@ dist
 /.classpath
 /.cache
 /RUNNING_PID
+.settings/org.scala-ide.sdt.core.prefs
