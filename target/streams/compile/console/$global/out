@@ -1,0 +1,7 @@
+[0m[[0mdebug[0m] [0mStarting sandboxed run...[0m
+[0m[[0mdebug[0m] [0mWaiting for threads to exit or System.exit to be called.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread run-main to exit[0m
+[0m[[0minfo[0m] [0mStarting scala interpreter...[0m
+[0m[[0mdebug[0m] [0m  Boot classpath: /usr/java/jdk1.7.0_07/jre/lib/resources.jar:/usr/java/jdk1.7.0_07/jre/lib/rt.jar:/usr/java/jdk1.7.0_07/jre/lib/sunrsasign.jar:/usr/java/jdk1.7.0_07/jre/lib/jsse.jar:/usr/java/jdk1.7.0_07/jre/lib/jce.jar:/usr/java/jdk1.7.0_07/jre/lib/charsets.jar:/usr/java/jdk1.7.0_07/jre/lib/jfr.jar:/usr/java/jdk1.7.0_07/jre/classes:/home/sjsu/.sbt/boot/scala-2.9.2/lib/scala-library.jar[0m
+[0m[[0mdebug[0m] [0m  Classpath: /home/sjsu/SJSU/CMPE297/Git/CMPE297_CustomerFeedbackService/target/scala-2.9.2/classes:/home/sjsu/.sbt/boot/scala-2.9.2/lib/scala-compiler.jar:/home/sjsu/.sbt/boot/scala-2.9.2/lib/jline.jar:/home/sjsu/.sbt/boot/scala-2.9.2/lib/jansi.jar[0m
+[0m[[0minfo[0m] [0m[0m
