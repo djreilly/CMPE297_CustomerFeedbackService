@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /                           controllers.Application.index
+#GET     /review/:client_id/:product_id          controllers.Application.getReviews(client_id, product_id)
 GET     /reviews/new               controllers.Application.showCreationForm
 POST    /reviews/new               controllers.Application.create
 GET     /reviews/:id               controllers.Application.showEditForm(id)

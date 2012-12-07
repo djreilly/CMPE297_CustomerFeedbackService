@@ -27,14 +27,12 @@ object Application extends Controller with MongoController {
   def index = Action { implicit request =>
     Async {
       implicit val reader = Review.ReviewBSONReader
-      // empty query to match all the documents
-      val query = BSONDocument()
       val sort = getSort(request)
-      if(sort.isDefined) {
-        // build a selection document with an empty query and a sort subdocument ('$orderby')
-        query += "$orderby" -> sort.get
-        query += "$query" -> BSONDocument()
-      }
+      // build a selection document with an empty query and a sort subdocument ('$orderby')
+      val query = BSONDocument(
+        "$orderby" -> sort,
+        "$query" -> BSONDocument()
+      )
       val activeSort = request.queryString.get("sort").flatMap(_.headOption).getOrElse("none")
       // the future cursor of documents
       val found = collection.find(query)
@@ -44,7 +42,7 @@ object Application extends Controller with MongoController {
       }
     }
   }
-
+  
   def showCreationForm = Action {
     Ok(views.html.editReview(None, Review.form, None))
   }
@@ -98,7 +96,9 @@ object Application extends Controller with MongoController {
           "$set" -> BSONDocument(
             "client_id" -> BSONString(review.client_id),
             "product_id" -> BSONString(review.product_id),
-            "review_summary" -> BSONString(review.review_summary),
+            "reviewer_id" -> BSONString(review.reviewer_id.get),
+            "review_rating" -> BSONString(review.review_rating.get),
+            "review_summary" -> BSONString(review.review_summary.get),
             "review_details" -> BSONString(review.review_details.get),
             "review_date" -> BSONDateTime(new DateTime().getMillis)))
         // ok, let's do the update
@@ -166,16 +166,15 @@ object Application extends Controller with MongoController {
 
   private def getSort(request: Request[_]) = {
     request.queryString.get("sort").map { fields =>
-      val orderBy = BSONDocument()
-      for(field <- fields) {
-        val order = if(field.startsWith("-"))
-          field.drop(1) -> -1
-        else field -> 1
-
-        if(order._1 == "client_id" || order._1 == "product_id" || order._1 == "review_summary" || order._1 == "review_date")
-          orderBy += order._1 -> BSONInteger(order._2)
-      }
-      orderBy
+      val sortBy = for {
+        order <- fields.map { field =>
+          if(field.startsWith("-"))
+            field.drop(1) -> -1
+          else field -> 1
+        }
+        if order._1 == "client_id" || order._1 == "product_id" || order._1 == "review_summary" || order._1 == "review_date"
+      } yield order._1 -> BSONInteger(order._2)
+      BSONDocument(sortBy :_*)
     }
   }
 }

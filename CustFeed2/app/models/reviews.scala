@@ -14,12 +14,13 @@ case class Review(
   id: Option[BSONObjectID],
   client_id: String,
   product_id: String,
-  review_summary: String,
+  reviewer_id: Option[String],
+  review_rating: Option[String],
+  review_summary: Option[String],
   review_details: Option[String],
   review_date: DateTime
 )
-// Turn off your mind, relax, and float downstream
-// It is not dying...
+
 object Review {
   implicit object ReviewBSONReader extends BSONReader[Review] {
     def fromBSON(document: BSONDocument) :Review = {
@@ -28,7 +29,9 @@ object Review {
         doc.getAs[BSONObjectID]("_id"),
         doc.getAs[BSONString]("client_id").get.value,
         doc.getAs[BSONString]("product_id").get.value,
-        doc.getAs[BSONString]("review_summary").get.value,
+        doc.getAs[BSONString]("reviewer_id").map(ri => new String),
+        doc.getAs[BSONString]("review_rating").map(rr => new String),
+        doc.getAs[BSONString]("review_summary").map(rs => new String),
         doc.getAs[BSONString]("review_details").map(rd => new String),
         new DateTime(doc.getAs[BSONDateTime]("review_date").get.value)
       )
@@ -36,15 +39,15 @@ object Review {
   }
   implicit object ReviewBSONWriter extends BSONWriter[Review] {
     def toBSON(review: Review) = {
-      val bson = BSONDocument(
+      BSONDocument(
         "_id" -> review.id.getOrElse(BSONObjectID.generate),
         "client_id" -> BSONString(review.client_id),
         "product_id" -> BSONString(review.product_id),
-        "review_summary" -> BSONString(review.review_summary))
-      if(review.review_details.isDefined)
-        bson += "review_details" -> BSONString(review.review_details.get)
-      bson += "review_date" -> BSONDateTime(review.review_date.getMillis())
-      bson
+        "reviewer_id" -> review.reviewer_id.map(ri => BSONString(review.reviewer_id.get)),
+        "review_rating" -> review.review_rating.map(rr => BSONString(review.review_rating.get)),
+        "review_summary" -> review.review_summary.map(rs => BSONString(review.review_summary.get)),
+        "review_details" -> review.review_details.map(rd => BSONString(review.review_details.get)),
+        "review_date" -> BSONDateTime(review.review_date.getMillis()))
     }
   }
   val form = Form(
@@ -55,15 +58,19 @@ object Review {
         "error.objectId")),
       "client_id" -> nonEmptyText,
       "product_id" -> nonEmptyText,
-      "review_summary" -> nonEmptyText,
-      "review_details" -> text
-    ) { (id, client_id, product_id, review_summary, /* review_date,*/ review_details) =>
+      "reviewer_id" -> optional(of[String]),
+      "review_rating" -> optional(of[String]),
+      "review_summary" -> optional(of[String]),
+      "review_details" -> optional(of[String])
+    ) { (id, client_id, product_id, reviewer_id, review_rating, review_summary, review_details) =>
       Review(
         id.map(new BSONObjectID(_)),
         client_id,
         product_id,
-        review_summary,
-        Option(review_details),
+        reviewer_id.map(new String(_)),
+        review_rating.map(new String(_)),
+        review_summary.map(new String(_)),
+        review_details.map(new String(_)),
         new DateTime
       )
     } { (review =>
@@ -71,8 +78,10 @@ object Review {
         (review.id.map(_.stringify),
         review.client_id,
         review.product_id,
-        review.review_summary,
-        if(review.review_details.isDefined) review.review_details.get else ""
+        review.reviewer_id.map(_.toString()),
+        review.review_rating.map(_.toString()),
+        review.review_summary.map(_.toString()),
+        review.review_details.map(_.toString())
       )))
     })
 }

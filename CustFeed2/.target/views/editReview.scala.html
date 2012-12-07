@@ -11,9 +11,12 @@
       Edit
     } a review</h2>
   @helper.form(action = (if(!id.isDefined) routes.Application.create else routes.Application.edit(id.get)), 'class -> "form-horizontal") {
-    @helper.inputText(form("title"))
-    @helper.inputText(form("publisher"))
-    @helper.textarea(form("content"))
+    @helper.inputText(form("Client ID"))
+    @helper.inputText(form("Product ID"))
+    @helper.inputText(form("Reviewer ID"))
+    @helper.inputText(form("Rating"))
+    @helper.inputText(form("Summary"))
+    @helper.textarea(form("Details"))
     <div class="form-actions">
       <input class="btn btn-primary" type="submit">
     </div>
