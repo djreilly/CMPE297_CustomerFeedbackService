@@ -67,9 +67,10 @@ object SignUp extends Controller {
 	/**
 	 *  Display user
 	 */
-	def user = Action {
-		val existingUser = User("fake@gmail.com", "fakeuser", "secret", Some("France"), Some("555 Bailey Ave"), Some(30))
-		Ok(html.signup(signupForm.fill(existingUser)))
+	def user(emailID: String) = Action { implicit request =>
+          val u = User.findByEmail(emailID)
+          val existingUser = u.getOrElse(User("fake@gmail.com", "fakeuser", "secret", Some("France"), Some("555 Bailey Ave"), Some(30)))
+          Ok(html.signup(signupForm.fill(existingUser)))
 	}
 	
 	/**

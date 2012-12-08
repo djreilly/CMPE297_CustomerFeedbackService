@@ -3,16 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                                controllers.Application.index
 
 # Administration API
-GET     /admin/login				controllers.Application.login
-POST    /admin/login				controllers.Application.authenticate
-GET     /admin/logout				controllers.Application.logout
+GET     /admin/login                     controllers.Application.login
+POST    /admin/login                     controllers.Application.authenticate
+GET     /admin/logout                    controllers.Application.logout
 
-GET     /admin/signup				controllers.SignUp.form
-GET     /admin/signup/test			controllers.SignUp.test
-POST    /admin/signup				controllers.SignUp.submit
+GET     /admin/signup                    controllers.SignUp.form
+GET     /admin/signup/test               controllers.SignUp.test
+GET     /admin/signup/user/:emailID      controllers.SignUp.user(emailID)
+POST    /admin/signup                    controllers.SignUp.submit
 
 GET     /admin/client              controllers.Application.addClient
 GET     /admin/client/:client_id   controllers.Application.client(client_id)
