@@ -56,7 +56,11 @@
 				<div class="float-left">
 					<table>
 						<tr>
-							<td class="table-cell-label">Username:</td>
+							<td class="table-cell-label">Client ID:</td>
+							<td>@user.clientID</td>
+						</tr>
+						<tr>
+							<td class="table-cell-label">Name:</td>
 							<td>@user.name</td>
 						</tr>
 						<tr>
@@ -76,7 +80,11 @@
 							<td>@user.country.getOrElse { <em>Not specified</em> }</td>
 						</tr>
 						<tr>
-							<td class="table-cell-label">Age:</td>
+							<td class="table-cell-label">Review Template:</td>
+							<td>@user.template.getOrElse { <em>Not specified</em> }</td>
+						</tr>
+						<tr>
+							<td class="table-cell-label">Retention Age:</td>
 							<td>@user.age.getOrElse { <em>Not specified</em> }</td>
 						</tr>
 					</table>

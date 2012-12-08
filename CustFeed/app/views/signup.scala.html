@@ -99,12 +99,20 @@
 								options = options(Countries.list),
 								'_default -> "--- Choose a country ---",
 								'_label -> "Country",
-								'_error -> signupForm("profile.country").error.map(_.withMessage("Please select your country"))
+								'_error -> signupForm("country").error.map(_.withMessage("Please select your country"))
 							)
 							
+							@select(
+								signupForm("template"), 
+								options = options(Templates.list),
+								'_default -> "--- Choose a review template ---",
+								'_label -> "Review Template",
+								'_error -> signupForm("template").error.map(_.withMessage("Please select your review template"))
+							)
+							  
 							@inputText(
 								signupForm("age"), 
-								'_label -> "Age", 'class -> "mini",
+								'_label -> "Rentention age", 'class -> "mini",
 								'_showConstraints -> false
 							)
 							  
